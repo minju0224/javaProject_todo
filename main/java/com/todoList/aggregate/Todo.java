@@ -1,6 +1,7 @@
 package com.todoList.aggregate;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,10 +9,28 @@ public class Todo implements Serializable {
     private int no; // 고유번호
     private String title; // 제목
     private String content; // 내용
-    private Date startDate; // 시작날짜
-    private Date endDate; // 마감날짜
-    private StateType status; // 진행 상태
+    private LocalDate startDate; // 시작날짜
+    private LocalDate endDate; // 마감날짜
+    private StateType status = StateType.진행전; // 진행 상태
     private int importance; // 중요도
+
+    public Todo(String title, String content, LocalDate startDate, LocalDate endDate, int importance) {
+        this.title = title;
+        this.startDate = startDate;
+        this.content = content;
+        this.endDate = endDate;
+        this.importance = importance;
+    }
+
+    public Todo(int no, String title,  String content, LocalDate startDate, LocalDate endDate, StateType status, int importance) {
+        this.no = no;
+        this.title = title;
+        this.startDate = startDate;
+        this.content = content;
+        this.endDate = endDate;
+        this.status = status;
+        this.importance = importance;
+    }
 
     @Override
     public String toString() {
@@ -63,19 +82,19 @@ public class Todo implements Serializable {
         this.content = content;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
