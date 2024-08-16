@@ -1,10 +1,10 @@
 package com.todoList.run;
 
+import com.todoList.aggregate.StateType;
 import com.todoList.aggregate.Todo;
 import com.todoList.service.TodoService;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Application {
@@ -30,10 +30,18 @@ public class Application {
             switch (choice) {
                 case 1: todoService.selectAllTodo(chooseType());; break;
                 case 3: todoService.insertTodo(addTodo()); break;
+                case 5: todoService.deleteTodo(chooseNum()); break;
+                case 6: chooseUpdate(); break;
                 case 9:
                     System.out.println("프로그램을 종료합니다."); return;
             }
         }
+    }
+
+    private static int chooseNum() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("삭제하고자 하는 번호를 입력하세요.");
+        return sc.nextInt();
     }
 
     private static int chooseType(){
@@ -68,4 +76,23 @@ public class Application {
 
         return newTodo;
     }
+    private static void chooseUpdate() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("상태를 변경하고 싶은 일정 번호를 입력하세요: ");
+        int num = sc.nextInt();
+        sc.nextLine(); // 버퍼 비우기!
+        /* nextInt(), nextDouble(), nextLong() 등의 메서드는 숫자 데이터를 읽은 후,
+         줄 바꿈 문자를 포함하지 않음. 개행 문자(\n)는 여전히 버퍼에 남게 되는 것을 방지 */
+
+        System.out.print("새로운 상태를 입력하세요 (진행전, 진행후, 완료): ");
+        String newStatus = sc.nextLine();
+
+        try {
+            StateType status = StateType.valueOf(newStatus);
+            todoService.updateStatus(num, status);
+        } catch (IllegalArgumentException e) {
+            System.out.println("올바르지 않은 상태입니다. 진행전, 진행후, 완료 중에서 선택하세요.");
+        }
+    }
 }
+
