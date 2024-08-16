@@ -7,10 +7,11 @@ import com.todoList.stream.MyObjectOutputStream;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodoRepository {
     private final ArrayList<Todo> todoList = new ArrayList<>();
-    private static final String FILE_PATH = "src/main/java/com/todoList/db.todoDb.dat";
+    private static final String FILE_PATH = "src/main/java/com/todoList/db/todoDb.dat";
     public TodoRepository() {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
@@ -66,6 +67,36 @@ public class TodoRepository {
         return todoList;
     }
 
+
+    public List<Todo> selectTodo(String title) {
+        List<Todo> result = new ArrayList<>();
+        for(Todo todo: todoList) {
+            if(todo.getTitle().contentEquals(title)){
+                result.add(todo);
+            }
+        }
+        return result;
+    }
+
+    public Todo selectOneTodo(String title) {
+        Todo selectedTodo  = null;
+        for(Todo todo: todoList) {
+            if(todo.getTitle().equals(title)){
+                selectedTodo = todo;
+                return selectedTodo;
+            }
+        }
+        return selectedTodo;
+    }
+
+    public void modifyTodo(Todo reform) {
+        for(int i=0; i<todoList.size(); i++) {
+            if(reform.getNo() == todoList.get(i).getNo()) {
+                todoList.set(i,reform);
+                break;
+            }
+        }
+
     public int deleteTodo(int no) {
 
         for(int i = 0; i<todoList.size();i++){
@@ -86,5 +117,6 @@ public class TodoRepository {
             }
         }
         return 0; // 해당 ID를 가진 일정이 없음
+
     }
 }

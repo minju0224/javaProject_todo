@@ -14,6 +14,10 @@ public class Todo implements Serializable {
     private StateType status = StateType.진행전; // 진행 상태
     private int importance; // 중요도
 
+    public Todo() {
+
+    }
+
     public Todo(String title, String content, LocalDate startDate, LocalDate endDate, int importance) {
         this.title = title;
         this.startDate = startDate;
