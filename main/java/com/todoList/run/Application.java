@@ -28,7 +28,7 @@ public class Application {
 
             int choice = sc.nextInt();
             switch (choice) {
-                case 1: todoService.selectAllTodo(chooseType());; break;
+                case 1: todoService.selectAllTodo(chooseType()); break;
                 case 2: todoService.searchTodoList(chooseTitle()); break;
                 case 3: todoService.insertTodo(addTodo()); break;
                 case 4:
@@ -52,7 +52,7 @@ public class Application {
         System.out.print("검색할 일정 제목을 입력하십시오. : ");
         String title = sc.nextLine();
         return title;
-
+    }
     private static int chooseNum() {
         Scanner sc = new Scanner(System.in);
         System.out.println("삭제하고자 하는 번호를 입력하세요.");
@@ -95,8 +95,8 @@ public class Application {
     private static Todo reform(Todo selected){
         Todo todo = selected;
         Scanner sc = new Scanner(System.in);
-        while(true){
-            System.out.println("==== 일정 " +todo.getTitle()+ "수정 ====");
+        while(true) {
+            System.out.println("==== 일정 " + todo.getTitle() + "수정 ====");
             System.out.println("1. 제목 수정");
             System.out.println("2. 내용 수정");
             System.out.println("3. 시작일 수정");
@@ -132,6 +132,8 @@ public class Application {
                 default:
                     System.out.println("올바른 값을 입력해 주세요.");
             }
+        }
+    }
           
     private static void chooseUpdate() {
         Scanner sc = new Scanner(System.in);
