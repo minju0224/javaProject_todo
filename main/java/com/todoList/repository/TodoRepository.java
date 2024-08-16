@@ -67,6 +67,7 @@ public class TodoRepository {
         return todoList;
     }
 
+
     public List<Todo> selectTodo(String title) {
         List<Todo> result = new ArrayList<>();
         for(Todo todo: todoList) {
@@ -95,5 +96,27 @@ public class TodoRepository {
                 break;
             }
         }
+
+    public int deleteTodo(int no) {
+
+        for(int i = 0; i<todoList.size();i++){
+            todoList.remove(i);
+
+            File file = new File(FILE_PATH);
+            saveTodos(file, todoList);
+            return 1;
+        }
+        return 0;
+    }
+
+    public int updateTodoStatus(int todoNo, StateType status) {
+        for (Todo todo : todoList) {
+            if (todo.getNo() == todoNo) {
+                todo.setStatus(status);
+                return 1; // 업데이트 성공
+            }
+        }
+        return 0; // 해당 ID를 가진 일정이 없음
+
     }
 }

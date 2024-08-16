@@ -1,5 +1,6 @@
 package com.todoList.service;
 
+import com.todoList.aggregate.StateType;
 import com.todoList.aggregate.Todo;
 import com.todoList.repository.TodoRepository;
 
@@ -79,4 +80,24 @@ public class TodoService {
     public void updateTodo(Todo reform) {
         todoRepository.modifyTodo(reform);
     }
+
+    public void deleteTodo(int no) {
+        int result = todoRepository.deleteTodo(no);
+        if(result == 1) {
+            System.out.println("일정이 삭제 되었습니다.");
+        }else{
+            System.out.println("없는 일정 입니다. 목록(1입력)에서 다시 확인해 주세요");
+        }
+    }
+
+    public void updateStatus(int todoNo, StateType newStatus) {
+        int result = todoRepository.updateTodoStatus(todoNo, newStatus);
+        if (result == 1) {
+            System.out.println("일정 상태가 성공적으로 변경되었습니다.");
+        } else {
+            System.out.println("해당 No를 가진 일정을 찾을 수 없습니다.");
+        }
+    }
+
+
 }
