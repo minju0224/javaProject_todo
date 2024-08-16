@@ -47,6 +47,7 @@ public class TodoRepository {
     }
 
     public int selectLastNumber() {
+        if(todoList.isEmpty()) return 0;
         Todo lastTodo = todoList.get(todoList.size()-1);
         return lastTodo.getNo();
     }
@@ -90,12 +91,13 @@ public class TodoRepository {
     }
 
     public void modifyTodo(Todo reform) {
-        for(int i=0; i<todoList.size(); i++) {
-            if(reform.getNo() == todoList.get(i).getNo()) {
-                todoList.set(i,reform);
+        for (int i = 0; i < todoList.size(); i++) {
+            if (reform.getNo() == todoList.get(i).getNo()) {
+                todoList.set(i, reform);
                 break;
             }
         }
+    }
 
     public int deleteTodo(int no) {
 
